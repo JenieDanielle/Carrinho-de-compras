@@ -11,7 +11,7 @@ $loja->addToCart(4, 2); // adiciona normalmente o tênis
 $loja->removeProducts(3); // remove o tênis do carrinho
 $loja->removeProducts(4); // remove o tênis do carrinho
 
-print_r($loja->getCart());
+print_r($loja->getCart("DESCONTO10")); // cupom de desconto de 10% aplicado
 
 //tirar esse dps
 // print_r($loja->getProducts());

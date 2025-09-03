@@ -46,7 +46,7 @@ class CartGenerator
         }
     }
 
-    public function sumTotal()
+    public function sumTotal($discount = null)
     {
         $total = 0;
 
@@ -59,11 +59,14 @@ class CartGenerator
             $total += $product['subtotal'];
         }
 
+        if ($discount == "DESCONTO10") {
+            $total = $total - ($total * 0.10);
+        }
+
         return $total;
     }
 
-
-    public function getCart()
+    public function getCart($discount = null)
     {
         if (!empty($cart)) {
             echo "<p>O carrinho de compras está vazio... <br></p>";
@@ -72,7 +75,14 @@ class CartGenerator
             foreach ($this->cart as $product) {
                 echo "<p>- {$product['quantity']} {$product['name']} <br>R$ {$product['subtotal']}<br></p>";
             }
-            echo "<p><b>Total:</b> R$ {$this->sumTotal()}<br></p>";
+
+            $finalValue = $this->sumTotal($discount);
+
+            if ($discount === "DESCONTO10") {
+                echo "Desconto de 10% aplicado com sucesso.";
+            }
+
+            echo "<p><b>Total:</b> R$ {$finalValue}<br></p>";
         }
 
         // return $this->cart; // mostra o array do carrinho
