@@ -2,7 +2,8 @@
 Este projeto é um exemplo simples de **Carrinho de Compras** feito em PHP, que permite:
 - Adicionar produtos
 - Controlar o estoque
-- Calcular o total do carrinho. 
+- Calcular o total do carrinho com desconto de 10%.
+- Excluir itens do carrinho de forma simples. 
 
 O código segue as boas práticas: **PSR-12, KISS e DRY**.
 
@@ -11,8 +12,10 @@ O código segue as boas práticas: **PSR-12, KISS e DRY**.
 ## Funcionalidades
 
 - Listagem de produtos com **id, nome, preço e estoque**.
+- Remoção de produtos do carrinho através do **id**, com reposição automática no estoque.
 - Adição de produtos ao carrinho, respeitando o estoque disponível.
 - Cálculo automático do **subtotal** de cada item e do **total** do carrinho.
+- Aplicação do desconto de 10% no total do carrinho utilizando o cupom **DESCONTO10**, exibindo mensagem de confirmação.
 - Mensagem de aviso caso o estoque seja insuficiente.
 - Visualização do carrinho de compras e total.
 
@@ -46,8 +49,11 @@ $loja->addToCart(2, 6);
 // Adiciona 2 tênis
 $loja->addToCart(3, 2);
 
-// Mostrar o carrinho
-$loja->getCart();
+// Remove um produto pelo ID (exemplo: camiseta de id 1)
+$loja->removeProducts(1);
+
+// Mostrar o carrinho com desconto aplicado
+$loja->getCart("DESCONTO10");
 
 // Mostrar produtos e estoque
 print_r($loja->getProducts());
@@ -57,9 +63,9 @@ Exemplo de saída:
 Exemplo de saída:
 ```php
 Carrinho de Compras:
-- 2 Camisetas: R$ 119,80
 - 2 Tênis: R$ 399,80
-Total: R$ 519,60
+Total: R$ 359,82
+Desconto de 10% aplicado com sucesso.
 
 Aviso: Produto Calça Jeans não adicionado. O estoque é de 5 unidades.
 ```
@@ -68,7 +74,8 @@ Aviso: Produto Calça Jeans não adicionado. O estoque é de 5 unidades.
 
 - Cada produto é representado como um array com id, name, price e stock.
 - O carrinho é um array com id, name, quantity e subtotal.
-- O método sumTotal() retorna o total do carrinho, mostrando mensagem se o carrinho estiver vazio.
+- O método removeProducts() exclui o produto do carrinho e devolve a quantidade ao estoque.
+- O método sumTotal() retorna o total do carrinho, aplicando o desconto quando informado o cupom, e mostrando mensagem se o carrinho estiver vazio.
 - Segue as boas práticas de código PSR-12, evitando repetição e mantendo clareza (KISS e DRY).
 
 *Feito pelas alunas 
